@@ -1,0 +1,87 @@
+<div class="header">
+  <h1>
+    <a href="/">Git-Search</a>
+  </h1>
+</div>
+<div class="container-input">
+      <div id="body">
+        <p class="text-center">Heya, looking for Git's? Enter the repository you are looking for..</p>
+
+        <form (ngSubmit)=doSearch(formSearch)  #formSearch="ngForm">
+          <input type="text" class="form-control mr-sm-1" name="username" method="get" action="#" placeholder="Search"
+            [(ngModel)]='username' (keyup)="searchUserProfile()">
+
+        </form>
+      </div>
+    </div>
+  </div>
+<section id="content" class="three-column">
+  <div class="text-center center-block">
+    <p class="lead" id="loading" *ngIf="loading">Searching</p>
+  </div>
+</section>
+<div class="container details">
+  <div class="row">
+    <div class="col-md-4 image-left" >
+      <!-- <h3 *ngIf="userProfile.login === dateCount && userProfile.login>0"> {{userProfile.login}} </h3> -->
+      <h3 class='username' appHighlight>
+        <span>{{userProfile.login}}</span>
+      </h3>
+      <span id="a">
+        <img src="{{userProfile.avatar_url}}" alt="User Avatar" class="img-responsive profile-img img-thumbnail">
+      </span>
+      <br>
+      <br>
+      <a class="btn btn-inverse" style="width: inherit;" href={{userProfile.html_url}} target="_blank"> View Profile</a>
+    </div>
+    <div class="col-md-6" style="margin-top: 1em;">
+      <span class="badge badge-primary">{{userProfile.followers}} Followers</span>
+      <span class="badge badge-success">{{userProfile.following}} Following</span>
+      <span class="badge badge-info">{{userProfile.public_repos}} Repositories</span>
+      <span class="badge badge-warning">{{userProfile.public_gists}} Public Gists</span>
+      <br>
+      <br>
+      <br>
+      <p>
+        <strong>Username:</strong> {{userProfile.name}}</p>
+      <hr>
+      <p *ngIf="userProfile.email">
+        <strong>Email:</strong> {{userProfile.email}}</p>
+      <hr>
+      <p *ngIf="userProfile.bio">
+        <strong>Bio:</strong> {{userProfile.bio}}</p>
+      <hr>
+      <p *ngIf="userProfile.location">
+        <strong>Location:</strong> {{userProfile.location}}</p>
+      <hr>
+      <p>
+        <strong>Joined:</strong> {{userProfile.created_at|dateCount}} Days ago</p>
+      <hr>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h3 style='color: rgba(0,0,0,0.6)'>View Repositories</h3>
+  <hr>
+  <div *ngFor="let repo of repos">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 style="color: deepskyblue;">
+          <a href="{{repo.html_url}}" target="_blank">{{repo.name}}</a>
+        </h4>
+        <p class="badge badge-warning">Description</p>
+        <p>{{repo.description}}</p>
+      </div>
+      <div class="col-md-12">
+        <p class="badge badge-info">{{repo.watchers}} Watchers</p>
+        <p class="badge badge-success">{{repo.forks}} Forks</p>
+        <p class="badge badge-secondary">{{repo.stargazers_count}} Stars</p>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="clear "></div>
+
